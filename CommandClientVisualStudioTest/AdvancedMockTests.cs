@@ -67,7 +67,14 @@ namespace CommandClientVisualStudioTest
         [TestMethod]
         public void TestUserExitCommandWithoutMocks()
         {
-            Assert.Fail("Not yet implemented");
+            IPAddress ipaddress = IPAddress.Parse("127.0.0.1");
+            Command command = new Command(CommandType.UserExit, ipaddress, null);
+            MemoryStream simpleStream = new MemoryStream();
+            CMDClient client = new CMDClient(null, "Bogus network name");
+            typeof(CMDClient)
+                .GetField("networkStream", BindingFlags.Instance | BindingFlags.NonPublic)
+                .SetValue(client, simpleStream);
+            client.SendCommandToServerUnthreaded(command);
         }
 
         [TestMethod]
