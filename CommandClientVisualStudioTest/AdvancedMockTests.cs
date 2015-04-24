@@ -75,12 +75,17 @@ namespace CommandClientVisualStudioTest
                 .GetField("networkStream", BindingFlags.Instance | BindingFlags.NonPublic)
                 .SetValue(client, simpleStream);
             client.SendCommandToServerUnthreaded(command);
+            byte[] actual = simpleStream.ToArray();
+            byte[] expectedArray = { 0, 0, 0, 0, 9, 0, 0, 0, 49, 50, 55, 46, 48, 46, 48, 46, 49, 2, 0, 0, 0, 10, 0 };
+            CollectionAssert.AreEqual(expectedArray, actual);
+            
         }
 
         [TestMethod]
         public void TestSemaphoreReleaseOnNormalOperation()
         {
-            Assert.Fail("Not yet implemented");
+            //System.IO.Stream fakeStream = mocks.DynamicMock<System.IO.Stream>();
+            //System.Threading.Semaphore semaphore = mocks.DynamicMock<System.Threading.Semaphore>;
         }
 
         [TestMethod]
